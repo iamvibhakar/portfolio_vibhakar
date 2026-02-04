@@ -1,0 +1,26 @@
+<section id="skills" class="skills-section">
+	<div class="container">
+		<div class="section-head">
+			<h2 class="section-title">Skills</h2>
+			<p class="muted">Modern frontend stack with a focus on maintainability.</p>
+		</div>
+
+		<div class="skills-grid">
+			@for (group of skillGroups; track $index) {
+				<div class="skill-card">
+					<div class="skill-head">
+						<span class="skill-icon">
+							<fa-icon [icon]="group.icon"></fa-icon>
+						</span>
+						<h3>{{ group.title }}</h3>
+					</div>
+					<ul class="skill-list">
+						@for (item of group.items; track $index) {
+							<li>{{ item }}</li>
+						}
+					</ul>
+				</div>
+			}
+		</div>
+	</div>
+</section>

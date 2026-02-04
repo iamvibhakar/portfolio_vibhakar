@@ -1,0 +1,27 @@
+<section id="education" class="education-section">
+	<div class="container">
+		<div class="section-head">
+			<h2 class="section-title">Education</h2>
+			<p class="muted">Academic background and qualifications.</p>
+		</div>
+
+		<div class="timeline">
+			@for (edu of education; track $index) {
+				<article class="timeline-item">
+					<span class="timeline-dot"></span>
+					<div class="timeline-card">
+						<div class="timeline-head">
+							<div class="role-block">
+								<h3>{{ edu.degree }}</h3>
+								<span class="company">{{ edu.institute }}</span>
+							</div>
+							<span class="period">{{ edu.period }}</span>
+						</div>
+
+						<p class="exp-desc">Score: {{ edu.score }}</p>
+					</div>
+				</article>
+			}
+		</div>
+	</div>
+</section>

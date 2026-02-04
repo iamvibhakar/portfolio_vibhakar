@@ -1,0 +1,31 @@
+<section id="certificates" class="certificates-section">
+	<div class="container">
+		<div class="section-head">
+			<h2 class="section-title">Certificates</h2>
+			<p class="muted">Professional learning and verified coursework.</p>
+		</div>
+
+		<div class="certificates-card">
+			<div class="certificate-content">
+				<ul class="certificate-list">
+					@for (item of certificates; track $index) {
+						<li>
+							<span>{{ item.title }}</span>
+							@if (item.link) {
+								<a class="certificate-link" [href]="item.link" target="_blank" rel="noreferrer" aria-label="Open certificate">
+									<fa-icon [icon]="faExternalLink"></fa-icon>
+								</a>
+							}
+						</li>
+					}
+				</ul>
+			</div>
+			<div class="certificate-media">
+				<div class="certificate-badge">
+					<span>{{ certificates.length }}</span>
+					<p>Certificates</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

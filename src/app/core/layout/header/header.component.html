@@ -1,0 +1,16 @@
+<nav class="site-header">
+    <div class="container header-inner">
+        <a class="logo" href="#home">VK.</a>
+        <ul class="nav-links">
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#awards">Awards</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" (click)="theme.toggleDark()" aria-label="Toggle theme">
+            <fa-icon [icon]="theme.isDark() ? faSun : faMoon"></fa-icon>
+        </button>
+    </div>
+</nav>

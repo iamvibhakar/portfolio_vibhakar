@@ -1,0 +1,27 @@
+<section id="awards" class="awards-section">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title">Awards</h2>
+      <p class="muted">Recognition for consistency and delivery.</p>
+    </div>
+
+    <div class="awards-card">
+      <div class="award-content">
+        <ul class="award-list">
+          @for (award of awards; track $index) {
+            <li>
+              <h3>{{ award.title }} <span class="award-pill">{{ award.date }}</span></h3>
+              <p class="muted">{{ award.desc }}</p>
+            </li>
+          }
+        </ul>
+      </div>
+      <div class="award-media">
+        <div class="award-badge">
+          <span>{{ awards.length }}</span>
+          <p>Awards</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

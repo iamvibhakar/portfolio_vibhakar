@@ -1,0 +1,121 @@
+.experience-section {
+	padding: 90px 0;
+	background: var(--surface-alt);
+}
+
+.timeline {
+	display: grid;
+	gap: 22px;
+	position: relative;
+	padding-left: 18px;
+}
+
+.timeline::before {
+	content: '';
+	position: absolute;
+	left: 10px;
+	top: 0;
+	bottom: 0;
+	width: 2px;
+	background: linear-gradient(
+		180deg,
+		color-mix(in srgb, var(--accent) 0%, transparent),
+		color-mix(in srgb, var(--accent) 35%, transparent),
+		color-mix(in srgb, var(--accent) 0%, transparent)
+	);
+}
+
+.timeline-item {
+	position: relative;
+	display: grid;
+}
+
+.timeline-dot {
+	position: absolute;
+	left: calc(10px - 9px);
+	top: 26px;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+	border: 2px solid var(--surface);
+	box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.timeline-dot::after {
+	content: '';
+	position: absolute;
+	inset: 4px;
+	border-radius: 50%;
+	background: var(--surface);
+}
+
+.timeline-card {
+	padding: 24px 26px;
+	border-radius: 20px;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	box-shadow: var(--card-shadow);
+	margin-left: 18px;
+	transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.timeline-card:hover {
+	transform: translateY(-4px);
+	border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+	box-shadow: 0 22px 45px color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+.timeline-head {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 16px;
+	margin-bottom: 14px;
+	flex-wrap: wrap;
+}
+
+.exp-desc {
+	margin: 0 0 16px;
+	color: var(--muted);
+	line-height: 1.6;
+}
+
+.role-block {
+	display: grid;
+	gap: 6px;
+}
+
+.timeline-head h3 {
+	margin: 0 0 6px;
+	font-size: 20px;
+	color: var(--text);
+}
+
+.company {
+	font-weight: 600;
+	color: var(--accent);
+}
+
+.period {
+	font-size: 12px;
+	color: var(--muted);
+	padding: 6px 12px;
+	border-radius: 999px;
+	background: color-mix(in srgb, var(--muted) 16%, transparent);
+}
+
+.tech-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.tech-pill {
+	padding: 6px 14px;
+	border-radius: 999px;
+	font-size: 12px;
+	background: color-mix(in srgb, var(--accent) 16%, transparent);
+	color: var(--accent);
+	border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+}

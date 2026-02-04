@@ -1,0 +1,32 @@
+<section id="experience" class="experience-section">
+    <div class="container">
+        <div class="section-head">
+            <h2 class="section-title">Work Experience</h2>
+        </div>
+
+        <div class="timeline">
+            @for (exp of experiences; track $index) {
+                <article class="timeline-item">
+                    <span class="timeline-dot"></span>
+                    <div class="timeline-card">
+                        <div class="timeline-head">
+                            <div class="role-block">
+                                <h3>{{ exp.role }}</h3>
+                                <span class="company">{{ exp.company }}</span>
+                            </div>
+                            <span class="period">{{ exp.period }}</span>
+                        </div>
+
+                        <p class="exp-desc">{{ exp.desc }}</p>
+
+                        <div class="tech-list">
+                            @for (t of exp.tech; track $index) {
+                                <span class="tech-pill">{{ t }}</span>
+                            }
+                        </div>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+</section>

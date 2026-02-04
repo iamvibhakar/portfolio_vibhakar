@@ -1,0 +1,47 @@
+<section id="projects" class="projects-section">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title">Projects</h2>
+      <p class="muted">Selected work focused on real-world product impact.</p>
+    </div>
+
+    <div class="projects-grid">
+      @for (project of projects | slice: 0 : visibleCount; track $index) {
+        <article class="project-card">
+          <div class="project-top">
+            <h3 class="title">{{ project.name }}</h3>
+            <div class="project-meta">
+              <span class="project-chip">{{ project.period }}</span>
+              @if (project.link) {
+                <a class="project-link" [href]="project.link" target="_blank" rel="noreferrer" aria-label="Open project">
+                  <fa-icon [icon]="faExternalLink"></fa-icon>
+                </a>
+              }
+            </div>
+          </div>
+          <p class="desc">{{ project.desc }}</p>
+
+          @if (project.bullets.length) {
+            <ul class="project-bullets">
+              @for (item of project.bullets; track $index) {
+                <li>{{ item }}</li>
+              }
+            </ul>
+          }
+
+          <div class="tech-list">
+            @for (tech of project.tech; track $index) {
+              <span class="tech-pill">{{ tech }}</span>
+            }
+          </div>
+        </article>
+      }
+    </div>
+
+    <div class="projects-cta">
+      <button class="btn-outline" type="button" (click)="toggleProjects()">
+        {{ isExpanded ? 'Show Less' : 'View More Projects' }}
+      </button>
+    </div>
+  </div>
+</section>
