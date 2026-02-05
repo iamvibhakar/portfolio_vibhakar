@@ -20,7 +20,6 @@ A modern, responsive personal portfolio built with Angular 17. It highlights pro
 - Angular 17 (Standalone APIs)
 - TypeScript
 - SCSS + Tailwind CSS
-- Angular SSR (Node/Express)
 - Font Awesome
 
 ## Getting Started
@@ -52,9 +51,10 @@ A modern, responsive personal portfolio built with Angular 17. It highlights pro
 
 ## Deployment
 
+Deployed on GitHub Pages: https://iamvibhakar.github.io/portfolio_vibhakar
+
 Build with `npm run build` and deploy the contents of `dist/`.
-For SSR, run `npm run serve:ssr:my-portfolio` on a Node host after building.
 
 ## License
 
-This project is personal portfolio code. Reuse with attribution.
+Copyright © 2026 Vibhakar Kumar — https://www.linkedin.com/in/vibhakarkumar/
