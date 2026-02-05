@@ -34,6 +34,15 @@
 	align-items: center;
 	justify-content: space-between;
 	gap: 12px;
+	position: relative;
+	padding-left: 6px;
+}
+
+.certificate-list li::before {
+	content: '•';
+	position: absolute;
+	left: -12px;
+	color: var(--muted);
 }
 
 .certificate-link {

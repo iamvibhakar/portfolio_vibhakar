@@ -11,7 +11,7 @@ A modern, responsive personal portfolio built with Angular 17. It highlights pro
 - Experience
 - Projects
 - Skills
-- Certificates
+- Certifications
 - Awards
 - Contact
 

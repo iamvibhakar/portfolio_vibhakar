@@ -37,7 +37,7 @@
 }
 
 .skill-card h3 {
-	margin: 0 0 16px;
+	margin: 0 0 3px;
 	font-size: 18px;
 	color: var(--text);
 }
@@ -49,4 +49,6 @@
 	line-height: 1.6;
 	display: grid;
 	gap: 6px;
+	list-style: disc;
+	list-style-position: outside;
 }
