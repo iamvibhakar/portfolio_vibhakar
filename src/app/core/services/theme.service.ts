@@ -67,11 +67,8 @@ export class ThemeService {
       return;
     }
 
-    const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
-    this.darkMode = prefersDark ?? true;
-    if (!this.darkMode) {
-      document.documentElement.classList.add('light');
-    }
+    this.darkMode = true;
+    document.documentElement.classList.remove('light');
   }
 
   private hasDocument(): boolean {
