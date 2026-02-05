@@ -2,6 +2,8 @@
 
 A modern, responsive personal portfolio built with Angular 17. It highlights projects, skills, education, experience, awards, and contact information with a clean, fast UI.
 
+![Portfolio Preview](src/assets/portolio.png)
+
 ## Sections
 
 - Hero / Home
