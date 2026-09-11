@@ -1,12 +1,12 @@
 <section id="experience" class="experience-section">
     <div class="container">
-        <div class="section-head">
+        <div class="section-head" appReveal>
             <h2 class="section-title">Work Experience</h2>
         </div>
 
         <div class="timeline">
-            @for (exp of experiences; track $index) {
-                <article class="timeline-item">
+            @for (exp of experiences; track exp.company; let i = $index) {
+                <article class="timeline-item" appReveal [appRevealDelay]="i * 80">
                     <div class="timeline-card">
                         <div class="timeline-head">
                             <div class="role-block">
@@ -19,7 +19,7 @@
                         <p class="exp-desc">{{ exp.desc }}</p>
 
                         <div class="tech-list">
-                            @for (t of exp.tech; track $index) {
+                            @for (t of exp.tech; track t) {
                                 <span class="tech-pill">{{ t }}</span>
                             }
                         </div>

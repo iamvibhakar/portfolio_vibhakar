@@ -1,77 +1,53 @@
-import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Injectable, PLATFORM_ID, inject, signal } from '@angular/core';
+
+export type Theme = 'dark' | 'light';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class ThemeService {
-  private renderer: Renderer2;
-  private readonly storageKey = 'theme';
-  private darkMode = true;
+	private readonly platformId = inject(PLATFORM_ID);
+	private readonly storageKey = 'theme';
 
-  constructor(rendererFactory: RendererFactory2) {
-    this.renderer = rendererFactory.createRenderer(null, null);
-    this.initializeTheme();
-  }
+	readonly theme = signal<Theme>('dark');
+	readonly isDark = () => this.theme() === 'dark';
 
-  toggleDark(): void {
-    if (!this.hasDocument()) {
-      return;
-    }
+	constructor() {
+		this.initializeTheme();
+	}
 
-    this.darkMode = !this.darkMode;
-    if (this.darkMode) {
-      document.documentElement.classList.remove('light');
-    } else {
-      document.documentElement.classList.add('light');
-    }
-    localStorage.setItem(this.storageKey, this.darkMode ? 'dark' : 'light');
-  }
+	toggle(): void {
+		this.set(this.theme() === 'dark' ? 'light' : 'dark');
+	}
 
-  enableDark(): void {
-    if (!this.hasDocument()) {
-      return;
-    }
-    this.darkMode = true;
-    document.documentElement.classList.remove('light');
-    localStorage.setItem(this.storageKey, 'dark');
-  }
+	set(theme: Theme): void {
+		this.theme.set(theme);
 
-  disableDark(): void {
-    if (!this.hasDocument()) {
-      return;
-    }
-    this.darkMode = false;
-    document.documentElement.classList.add('light');
-    localStorage.setItem(this.storageKey, 'light');
-  }
+		if (!this.hasDocument()) {
+			return;
+		}
 
-  isDark(): boolean {
-    return this.darkMode;
-  }
+		document.documentElement.classList.toggle('light', theme === 'light');
+		localStorage.setItem(this.storageKey, theme);
+	}
 
-  private initializeTheme(): void {
-    if (!this.hasDocument()) {
-      return;
-    }
+	private initializeTheme(): void {
+		if (!this.hasDocument()) {
+			return;
+		}
 
-    const stored = localStorage.getItem(this.storageKey);
-    if (stored === 'light') {
-      this.darkMode = false;
-      document.documentElement.classList.add('light');
-      return;
-    }
+		const stored = localStorage.getItem(this.storageKey) as Theme | null;
+		if (stored === 'light' || stored === 'dark') {
+			this.set(stored);
+			return;
+		}
 
-    if (stored === 'dark') {
-      this.darkMode = true;
-      document.documentElement.classList.remove('light');
-      return;
-    }
+		const prefersLight = window.matchMedia?.('(prefers-color-scheme: light)').matches;
+		this.set(prefersLight ? 'light' : 'dark');
+	}
 
-    this.darkMode = true;
-    document.documentElement.classList.remove('light');
-  }
-
-  private hasDocument(): boolean {
-    return typeof document !== 'undefined';
-  }
+	private hasDocument(): boolean {
+		return isPlatformBrowser(this.platformId) && typeof document !== 'undefined';
+	}
 }

@@ -1,30 +1,67 @@
 <section id="certificates" class="certificates-section">
 	<div class="container">
-		<div class="section-head">
+		<div class="section-head" appReveal>
 			<h2 class="section-title">Certifications</h2>
+			<p class="muted">{{ certificates.length }} certifications across {{ categories.length - 1 }} categories.</p>
 		</div>
 
-		<div class="certificates-card">
-			<div class="certificate-content">
-				<ul class="certificate-list">
-					@for (item of certificates; track $index) {
-						<li>
-							<span>{{ item.title }}</span>
-							@if (item.link) {
-								<a class="certificate-link" [href]="item.link" target="_blank" rel="noreferrer" aria-label="Open certificate">
-									<fa-icon [icon]="faExternalLink"></fa-icon>
-								</a>
-							}
-						</li>
-					}
-				</ul>
+		<div class="certificates-toolbar" appReveal>
+			<div class="filter-chips">
+				@for (category of categories; track category) {
+					<button
+						type="button"
+						class="filter-chip"
+						[class.active]="activeCategory() === category"
+						(click)="setCategory(category)"
+					>
+						{{ category }}
+					</button>
+				}
 			</div>
-			<div class="certificate-media">
-				<div class="certificate-badge">
-					<span>{{ certificates.length }}</span>
-					<p>Certifications</p>
-				</div>
-			</div>
+
+			<label class="search-box">
+				<fa-icon [icon]="faSearch"></fa-icon>
+				<input
+					type="search"
+					placeholder="Search certifications or skills…"
+					[value]="query()"
+					(input)="onQueryInput($event)"
+					aria-label="Search certifications"
+				/>
+			</label>
 		</div>
+
+		@if (filtered().length) {
+			<div class="certificates-grid">
+				@for (item of filtered(); track item.id) {
+					<article class="certificate-card" appReveal>
+						<div class="certificate-card-head">
+							<span class="certificate-icon">
+								<fa-icon [icon]="faAward"></fa-icon>
+							</span>
+							<span class="badge">{{ item.category }}</span>
+						</div>
+
+						<h3>{{ item.title }}</h3>
+						@if (item.issuer) {
+							<p class="certificate-issuer muted">{{ item.issuer }}</p>
+						}
+
+						<div class="certificate-skills">
+							@for (skill of item.skills; track skill) {
+								<span class="tech-pill">{{ skill }}</span>
+							}
+						</div>
+
+						<a class="certificate-link" [href]="item.link" target="_blank" rel="noreferrer">
+							View credential
+							<fa-icon [icon]="faExternalLink"></fa-icon>
+						</a>
+					</article>
+				}
+			</div>
+		} @else {
+			<p class="muted no-results">No certifications match your search.</p>
+		}
 	</div>
 </section>

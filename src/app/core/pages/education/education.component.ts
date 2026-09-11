@@ -1,24 +1,14 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RevealDirective } from '../../directives/reveal.directive';
+import { EDUCATION } from '../../data/education.data';
 
 @Component({
 	selector: 'app-education',
-	standalone: true,
+	imports: [RevealDirective],
 	templateUrl: './education.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	styleUrl: './education.component.scss'
 })
 export class EducationComponent {
-	education = [
-		{
-			institute: 'Dev Bhoomi Group Of Institutions, Dehradun',
-			degree: 'Masters of Computer Application (MCA)',
-			score: '79.20%',
-			period: '2019 – 2021'
-		},
-		{
-			institute: 'Ranchi University, Ranchi',
-			degree: 'Bachelors of Computer Application (BCA)',
-			score: '69%',
-			period: '2016 – 2019'
-		}
-	];
+	readonly education = EDUCATION;
 }

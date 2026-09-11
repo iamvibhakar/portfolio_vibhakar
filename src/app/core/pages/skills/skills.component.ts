@@ -1,77 +1,37 @@
-import { Component } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {
-  faCircleCheck,
-  faCode,
-  faCodeBranch,
-  faComments,
-  faDatabase,
-  faFlask,
-  faMicrochip,
-  faPalette,
-  faPuzzlePiece,
-  faWandSparkles
-} from '@fortawesome/free-solid-svg-icons';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { RevealDirective } from '../../directives/reveal.directive';
+import { SKILL_GROUPS } from '../../data/skills.data';
 
 @Component({
-  selector: 'app-skills',
-  standalone: true,
-  imports: [FontAwesomeModule],
-  templateUrl: './skills.component.html',
-  styleUrl: './skills.component.scss'
+	selector: 'app-skills',
+	imports: [FaIconComponent, RevealDirective],
+	templateUrl: './skills.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	styleUrl: './skills.component.scss'
 })
 export class SkillsComponent {
-  skillGroups = [
-    {
-      icon: faPuzzlePiece,
-      title: 'Frameworks',
-      items: ['Angular (8–19)', 'React.js', 'Redux']
-    },
-    {
-      icon: faCode,
-      title: 'Languages',
-      items: ['TypeScript', 'JavaScript', 'HTML5', 'CSS3']
-    },
-    {
-      icon: faPalette,
-      title: 'Styling & UI',
-      items: ['Bootstrap 5', 'Tailwind CSS', 'Material-UI (MUI)']
-    },
-    {
-      icon: faCircleCheck,
-      title: 'Integration Testing',
-      items: ['Jest']
-    },
-    {
-      icon: faMicrochip,
-      title: 'Runtime',
-      items: ['Node.js (Basic)', 'REST APIs']
-    },
-    {
-      icon: faDatabase,
-      title: 'Database',
-      items: ['MySQL']
-    },
-    {
-      icon: faComments,
-      title: 'Real-Time & Messaging',
-      items: ['Socket.io', 'WhatsApp API (WATI)']
-    },
-    {
-      icon: faFlask,
-      title: 'API Testing',
-      items: ['Postman', 'Swagger', 'Manual & UI Testing']
-    },
-    {
-      icon: faCodeBranch,
-      title: 'Version Control',
-      items: ['Git', 'GitLab']
-    },
-    {
-      icon: faWandSparkles,
-      title: 'Other',
-      items: ['Photoshop', 'Excel', 'Word', 'Advance Excel']
-    }
-  ];
+	faSearch = faMagnifyingGlass;
 
+	readonly skillGroups = SKILL_GROUPS;
+	readonly query = signal('');
+
+	readonly filteredGroups = computed(() => {
+		const query = this.query().trim().toLowerCase();
+		if (!query) {
+			return this.skillGroups;
+		}
+
+		return this.skillGroups
+			.map((group) => ({
+				...group,
+				items: group.items.filter((item) => item.toLowerCase().includes(query))
+			}))
+			.filter((group) => group.title.toLowerCase().includes(query) || group.items.length);
+	});
+
+	onQueryInput(event: Event): void {
+		this.query.set((event.target as HTMLInputElement).value);
+	}
 }

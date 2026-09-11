@@ -1,9 +1,12 @@
 <section id="home" class="hero-section">
   <div class="container hero-grid">
-    <div class="hero-copy">
-      <!-- <span class="eyebrow">Frontend Engineer</span> -->
+    <div class="hero-copy" appReveal>
       <h1>Vibhakar Kumar</h1>
-      <p class="subtitle">Frontend-Software Engineer</p>
+      <p class="subtitle role-rotator">
+        @for (role of roles; track role; let i = $index) {
+          <span class="role" [class.active]="roleIndex() === i">{{ role }}</span>
+        }
+      </p>
       <p class="muted">
         Building scalable, performant web applications with clean architecture,
         delightful UI, and accessible experiences.
@@ -23,15 +26,10 @@
           <span class="stat-number">10+</span>
           <span class="stat-label">Projects Delivered</span>
         </div>
-        <!-- <div class="stat">
-          <span class="stat-number">8</span>
-          <span class="stat-label">Domains Covered</span>
-        </div> -->
       </div>
     </div>
 
-    <div class="hero-card glass">
-      <!-- <div class="avatar">VK</div> -->
+    <div class="hero-card glass" appReveal [appRevealDelay]="150">
       <div class="hero-card-body section-head">
         <h3 class="section-title">Professional Summary</h3>
         <ul class="muted">
