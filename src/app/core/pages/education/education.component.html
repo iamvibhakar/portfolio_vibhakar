@@ -1,13 +1,12 @@
 <section id="education" class="education-section">
 	<div class="container">
-		<div class="section-head">
+		<div class="section-head" appReveal>
 			<h2 class="section-title">Education</h2>
 		</div>
 
 		<div class="timeline">
-			@for (edu of education; track $index) {
-				<article class="timeline-item">
-					<!-- <span class="timeline-dot"></span> -->
+			@for (edu of education; track edu.institute; let i = $index) {
+				<article class="timeline-item" appReveal [appRevealDelay]="i * 80">
 					<div class="timeline-card">
 						<div class="timeline-head">
 							<div class="role-block">

@@ -1,12 +1,33 @@
 <section id="projects" class="projects-section">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head" appReveal>
       <h2 class="section-title">Projects</h2>
     </div>
 
+    <div class="tech-filter-row" appReveal>
+      <button
+        type="button"
+        class="filter-chip"
+        [class.active]="activeTech() === null"
+        (click)="setTechFilter(null)"
+      >
+        All
+      </button>
+      @for (tech of techFilters; track tech) {
+        <button
+          type="button"
+          class="filter-chip"
+          [class.active]="activeTech() === tech"
+          (click)="setTechFilter(tech)"
+        >
+          {{ tech }}
+        </button>
+      }
+    </div>
+
     <div class="projects-grid">
-      @for (project of projects | slice: 0 : visibleCount; track $index) {
-        <article class="project-card">
+      @for (project of visibleProjects(); track project.name) {
+        <article class="project-card" appReveal>
           <div class="project-top">
             <h3 class="title">{{ project.name }}</h3>
             <div class="project-meta">
@@ -22,25 +43,29 @@
 
           @if (project.bullets.length) {
             <ul class="project-bullets">
-              @for (item of project.bullets; track $index) {
+              @for (item of project.bullets; track item) {
                 <li>{{ item }}</li>
               }
             </ul>
           }
 
           <div class="tech-list">
-            @for (tech of project.tech; track $index) {
+            @for (tech of project.tech; track tech) {
               <span class="tech-pill">{{ tech }}</span>
             }
           </div>
         </article>
+      } @empty {
+        <p class="muted">No projects match this filter.</p>
       }
     </div>
 
-    <div class="projects-cta">
-      <button class="btn-outline" type="button" (click)="toggleProjects()">
-        {{ isExpanded ? 'Show Less' : 'View More Projects' }}
-      </button>
-    </div>
+    @if (filteredProjects().length > 2) {
+      <div class="projects-cta">
+        <button class="btn-outline" type="button" (click)="toggleProjects()">
+          {{ isExpanded() ? 'Show Less' : 'View More Projects' }}
+        </button>
+      </div>
+    }
   </div>
 </section>

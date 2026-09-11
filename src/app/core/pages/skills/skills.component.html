@@ -1,12 +1,23 @@
 <section id="skills" class="skills-section">
 	<div class="container">
-		<div class="section-head">
+		<div class="section-head" appReveal>
 			<h2 class="section-title">Skills</h2>
 		</div>
 
+		<label class="search-box skills-search" appReveal>
+			<fa-icon [icon]="faSearch"></fa-icon>
+			<input
+				type="search"
+				placeholder="Search a skill…"
+				[value]="query()"
+				(input)="onQueryInput($event)"
+				aria-label="Search skills"
+			/>
+		</label>
+
 		<div class="skills-grid">
-			@for (group of skillGroups; track $index) {
-				<div class="skill-card">
+			@for (group of filteredGroups(); track group.title) {
+				<div class="skill-card" appReveal>
 					<div class="skill-head">
 						<span class="skill-icon">
 							<fa-icon [icon]="group.icon"></fa-icon>
@@ -14,11 +25,13 @@
 						<h3>{{ group.title }}</h3>
 					</div>
 					<ul class="skill-list">
-						@for (item of group.items; track $index) {
+						@for (item of group.items; track item) {
 							<li>{{ item }}</li>
 						}
 					</ul>
 				</div>
+			} @empty {
+				<p class="muted">No skills match your search.</p>
 			}
 		</div>
 	</div>

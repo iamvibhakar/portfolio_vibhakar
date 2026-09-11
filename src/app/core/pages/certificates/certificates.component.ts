@@ -1,29 +1,48 @@
-import { Component } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { faArrowUpRightFromSquare, faAward, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { RevealDirective } from '../../directives/reveal.directive';
+import { CERTIFICATES, CERTIFICATE_CATEGORIES } from '../../data/certificates.data';
 
 @Component({
 	selector: 'app-certificates',
-	standalone: true,
-	imports: [FontAwesomeModule],
+	imports: [FaIconComponent, RevealDirective],
 	templateUrl: './certificates.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	styleUrl: './certificates.component.scss'
 })
 export class CertificatesComponent {
 	faExternalLink = faArrowUpRightFromSquare;
+	faAward = faAward;
+	faSearch = faMagnifyingGlass;
 
-	certificates = [
-		{
-			title: 'Angular (The Complete Guide)',
-			link: 'https://www.linkedin.com/posts/vibhakarkumar_angular-angulardeveloper-developerlife-activity-6953314564696391680-jRC9/'
-		},
-		{
-			title: 'JavaScript Essential Training',
-			link: 'https://www.linkedin.com/posts/vibhakarkumar_connections-linkedinlearning-javascript-activity-6962343561899978752-OYcn/'
-		},
-		{
-			title: 'JavaScript Project',
-			link: 'https://www.mygreatlearning.com/certificate/YGSLQTMR'
-		}
-	];
+	readonly certificates = CERTIFICATES;
+	readonly categories = CERTIFICATE_CATEGORIES;
+
+	readonly activeCategory = signal('All');
+	readonly query = signal('');
+
+	readonly filtered = computed(() => {
+		const category = this.activeCategory();
+		const query = this.query().trim().toLowerCase();
+
+		return this.certificates.filter((cert) => {
+			const matchesCategory = category === 'All' || cert.category === category;
+			const matchesQuery =
+				!query ||
+				cert.title.toLowerCase().includes(query) ||
+				cert.skills.some((skill) => skill.toLowerCase().includes(query)) ||
+				(cert.issuer?.toLowerCase().includes(query) ?? false);
+
+			return matchesCategory && matchesQuery;
+		});
+	});
+
+	setCategory(category: string): void {
+		this.activeCategory.set(category);
+	}
+
+	onQueryInput(event: Event): void {
+		this.query.set((event.target as HTMLInputElement).value);
+	}
 }
